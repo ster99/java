@@ -1,31 +1,16 @@
-/*There are some problem with gausseli with some type of matrix.
-	there are to add some kind of control in gausseli such as dimension of matrix
-	and the defined positive control.
-
-	To do method list:
-	-jordanization
-	-matrices norm
-	-eigenvalues and eigenvectors
-	-linear indipendence
-	-pa=lu decomposition.
-
-
-	/**
-	This method is helpful to calculate the determinant of a given squared matrix.
-
-	Other methods needed:
-	gaussianelimination.java (or .class)
-	*/
+/**
+This class contains all the method for linear algebra operations with matrices and vectors.
+Read the documentation to know more about every command.
+*/
 public class MatrixTool {
 				
 		/**
 		It verifies that the matrix is squared then it applies the GAUSSIAN ELIMINATION.
-		This give us an upper triangular matrix were the only non-zero elements will 
-		be on the diagonal and on the upper part of the matrix. It's easy to prove that 
-		the determinant of those matrix is the product of the elements on the diagonal.
+		This give us an upper triangular matrix. It's easy to prove that the determinant 
+		of this kind of matrix is the product of the elements on the diagonal.
 
-		@param The only parameter needed is the matrix of which you want the determinant.
-		@return The method return the determinant of a given matrix A as a double.*/
+		@param The only parameter needed is the matrix (2-dim array) of which you want the determinant.
+		@return The method return the determinant of a given matrix A as a double 2-dimensional array.*/
 		
 		public double det(double[][] A){
 			double det=1;
@@ -43,22 +28,17 @@ public class MatrixTool {
 			return det;
 		}
 		
+	
 		
 		/**
 		It verifies that the matrix is squared then it applies the GAUSSIAN ELIMINATION.
-		This give us an upper triangular matrix were the only non-zero elements will 
-		be on the diagonal and on the upper part of the matrix. It's easy to prove that 
-		the determinant of those matrix is the product of the elements on the diagonal.
-		
-		@param The only parameter needed is the matrix of which you want the determinant.
-		@return The method return the determinant of a given matrix A as a double.*/
-		
-		
-		
-		
+		This give us an upper triangular matrix. 
 
+		@param The only parameter needed is the matrix (2-dim array).
+		@return The method return the upper triangular matrix associated with A.*/
+		
 		public double[][] gausseli(double[][] A){
-			int n=A.length;
+			int n=A[0].length;
 			int flag=0;
 			double tmp=0;
 			double m=0;
@@ -83,9 +63,16 @@ public class MatrixTool {
 			}
 			return A;
 		}
-		//
-		//
-		//
+	
+	
+		/**
+		This method is helpful for the resolution of linear systems of equations.
+		The method verify the compatibility of the dimension between A and b.
+		Then it solves the linear system Ax=b.
+
+		@param In input are given the matrix A (2-dim array) and b that stands for the vector of constant terms.
+		@return solvesys() return the solution x of the linear system Ax=b.*/
+	
 		public double[] solvesys(double[][] A, double[] b) {
 			int n=A.length;
 			double[][] U=new double[n][n];
@@ -94,9 +81,20 @@ public class MatrixTool {
 			x=solveupper(U,b);
 			return x;
 		}
-		//
-		//
-		//
+		
+	
+	
+		/**
+		It is similar to the method before (see solvesys() for more details).
+		It make the exactly same process but the constant term given is a matrix B.
+		It means that it sees "length of B"-number of linear systems with the same coefficients matrix A
+		and different vector of constant terms (every column vector of B). It gives back the matrix X where
+		every column of X, X(i), is the solution ov the linear system AX(i)=B(i).
+
+		@param In input are given the matrices A and B (2-dim array). The first is the matrix of coefficients,
+		then the second is the matrix of constant terms.
+		@return solvemultisys() return the solution matrix X of the linear multi-system AX=B.*/
+	
 		public double[][] solvemultisys(double[][] A, double[][] B) {
 			int n=A.length;
 			double[][] X=new double[n][n];
@@ -117,9 +115,17 @@ public class MatrixTool {
 			}
 			return X;
 		}
-		//
-		//
-		//
+		
+		
+		/**
+		This is the method to solve back a linear system Ax=b after the gaussian elimination.
+		The system will be like Ux=b* where U is an upper triangular matrix and b* is the vector
+		of constant terms modified according to gaussian elimination as well.
+
+		@param In input are given the matrices A and B (2-dim array). The first is the matrix of coefficients,
+		then the second is the matrix of constant terms.
+		@return solvemultisys() return the solution matrix X of the linear multi-system AX=B.*/
+	
 		public double[] solveupper(double U[][], double[] b) {
 			int n=b.length;
 			double[] x=new double[n];
@@ -176,7 +182,7 @@ public class MatrixTool {
 			return B;
 		}
 		//
-		//
+		//<
 		//
 		public double trace(double[][] A){
 			double tr=0;
